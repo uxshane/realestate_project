@@ -21,22 +21,22 @@ public class RealEstateTransaction {
     private String aptNm;
 
     @Column(name = "build_year")
-    private int buildYear;
+    private int buildYear;  // buildYear는 int형으로 유지
 
     @Column(name = "buyer_gbn")
     private String buyerGbn;
 
     @Column(name = "deal_amount")
-    private String dealAmount;
+    private String dealAmount;  // dealAmount는 String으로 저장
 
     @Column(name = "deal_day")
-    private int dealDay;
+    private int dealDay;  // dealDay는 int로 저장
 
     @Column(name = "deal_month")
-    private int dealMonth;
+    private int dealMonth;  // dealMonth는 int로 저장
 
     @Column(name = "deal_year")
-    private int dealYear;
+    private int dealYear;  // dealYear는 int로 저장
 
     @Column(name = "dealing_gbn")
     private String dealingGbn;
@@ -45,10 +45,10 @@ public class RealEstateTransaction {
     private String estateAgentSggNm;
 
     @Column(name = "exclu_use_ar")
-    private double excluUseAr;
+    private double excluUseAr;  // excluUseAr는 double로 저장
 
     @Column(name = "floor")
-    private int floor;
+    private int floor;  // floor는 int로 저장
 
     @Column(name = "jibun")
     private String jibun;
@@ -68,4 +68,9 @@ public class RealEstateTransaction {
     @Column(name = "umd_nm")
     private String umdNm;
 
+    @Column(name = "lawd_cd")
+    private String lawdCd;  // 법정동 코드
+
+    @Column(name = "deal_ymd")
+    private String dealYmd;  // 거래 연월 (YYYYMM 형식)
 }

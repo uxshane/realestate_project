@@ -19,10 +19,10 @@ public class RealEstateTransactionServiceImpl implements RealEstateTransactionSe
     public RealEstateTransactionServiceImpl(RealEstateTransactionRepository realEstateTransactionRepository) {
         this.realEstateTransactionRepository = realEstateTransactionRepository;
     }
-
+        
     @Transactional
     @Override
-    public void saveTransactions(List<Item> itemList) {
+    public void saveTransactions(List<Item> itemList, String lawdCd, String dealYmd) {
         for (ApiResponseDto.Item item : itemList) {
             // 중복 데이터 확인 (예: 동일한 아파트 이름, 거래 연월일을 기준으로 확인)
             boolean exists = realEstateTransactionRepository.existsByAptNmAndDealYearAndDealMonthAndDealDay(
@@ -50,9 +50,17 @@ public class RealEstateTransactionServiceImpl implements RealEstateTransactionSe
                 transaction.setSlerGbn(item.getSlerGbn());
                 transaction.setUmdNm(item.getUmdNm());
 
+                transaction.setLawdCd(lawdCd);
+                transaction.setDealYmd(dealYmd);
+
                 // 저장
                 realEstateTransactionRepository.save(transaction);
             }
         }
     }
+
+    public List<RealEstateTransaction> getTransactions(String lawdCd, String dealYmd) {
+        return realEstateTransactionRepository.findByLawdCdAndDealYmd(lawdCd, dealYmd);
+    }
+
 }

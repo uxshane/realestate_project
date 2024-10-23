@@ -1,5 +1,6 @@
 package com.example.realestate_api.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
@@ -14,6 +15,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @ToString
+@JsonIgnoreProperties(ignoreUnknown = true)
 @JacksonXmlRootElement(localName = "response")
 public class ApiResponseDto {
 
@@ -60,7 +62,7 @@ public class ApiResponseDto {
     public static class Items {
         @JacksonXmlElementWrapper(useWrapping = false)
         @JacksonXmlProperty(localName = "item")
-        private List<Item> itemList;
+        private List<Item> itemList;  // 단일 객체 대신 리스트로 변경
     }
 
     @Getter
@@ -75,7 +77,7 @@ public class ApiResponseDto {
         private String aptNm;
 
         @JacksonXmlProperty(localName = "buildYear")
-        private int buildYear;
+        private int buildYear;  // buildYear를 int로 변경
 
         @JacksonXmlProperty(localName = "buyerGbn")
         private String buyerGbn;
@@ -90,13 +92,13 @@ public class ApiResponseDto {
         private String dealAmount;
 
         @JacksonXmlProperty(localName = "dealDay")
-        private int dealDay;
+        private int dealDay;  // dealDay를 int로 변경
 
         @JacksonXmlProperty(localName = "dealMonth")
-        private int dealMonth;
+        private int dealMonth;  // dealMonth를 int로 변경
 
         @JacksonXmlProperty(localName = "dealYear")
-        private int dealYear;
+        private int dealYear;  // dealYear를 int로 변경
 
         @JacksonXmlProperty(localName = "dealingGbn")
         private String dealingGbn;
@@ -105,10 +107,10 @@ public class ApiResponseDto {
         private String estateAgentSggNm;
 
         @JacksonXmlProperty(localName = "excluUseAr")
-        private double excluUseAr;
+        private double excluUseAr;  // excluUseAr를 double로 변경
 
         @JacksonXmlProperty(localName = "floor")
-        private int floor;
+        private int floor;  // floor를 int로 변경
 
         @JacksonXmlProperty(localName = "jibun")
         private String jibun;

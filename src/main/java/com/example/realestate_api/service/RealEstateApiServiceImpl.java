@@ -31,9 +31,13 @@ public class RealEstateApiServiceImpl implements RealEstateApiService {
 
         XmlMapper mapper = new XmlMapper();
         try {
-            return mapper.readValue(xmlResponse, ApiResponseDto.class);
+
+            ApiResponseDto apiResponseDto = mapper.readValue(xmlResponse, ApiResponseDto.class);
+            System.out.println(apiResponseDto);
+            return apiResponseDto;
+
         } catch (Exception e) {
-            throw new RuntimeException("응답을 처리하는 중 오류 발생", e);
+            throw new RuntimeException("응답을 처리하는 중 오류 발생ㅠ", e);
         }
     }
 }

@@ -1,12 +1,9 @@
 package com.example.realestate_api.service;
 
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.TestPropertySource;
 import org.springframework.web.client.RestTemplate;
 
 import com.example.realestate_api.dto.ApiResponseDto;
@@ -25,10 +22,11 @@ public class RealEstateApiServiceTest {
     @MockBean
     private RestTemplate restTemplate;  // RestTemplate을 MockBean으로 주입
 
-        @Test
+    @Test
     public void testFetchRealEstateData() throws Exception {
         // Given: RestTemplate의 모킹된 동작을 설정
-        String mockResponse = "<response><header><resultCode>000</resultCode><resultMsg>OK</resultMsg></header><body><items><item><aptNm>Mock Apt</aptNm></item></items></body></response>";
+        String mockResponse = "<response><header><resultCode>000</resultCode><resultMsg>OK</resultMsg></header>"
+                            + "<body><items><item><aptNm>Mock Apt</aptNm><dealAmount>100,000</dealAmount></item></items></body></response>";
         
         when(restTemplate.getForObject(anyString(), eq(String.class))).thenReturn(mockResponse);
 
@@ -42,7 +40,8 @@ public class RealEstateApiServiceTest {
         assertThat(result).isNotNull();
         assertThat(result.getHeader().getResultCode()).isEqualTo("000");
         assertThat(result.getHeader().getResultMsg()).isEqualTo("OK");
-        assertThat(result.getBody().getItems().getItemList()).isNotEmpty();
-        assertThat(result.getBody().getItems().getItemList().get(0).getAptNm()).isEqualTo("Mock Apt");
+        assertThat(result.getBody().getItems().getItemList()).isNotEmpty();  // 리스트가 비어있지 않은지 확인
+        assertThat(result.getBody().getItems().getItemList().get(0).getAptNm()).isEqualTo("Mock Apt");  // 첫 번째 아이템의 아파트 이름 확인
+        assertThat(result.getBody().getItems().getItemList().get(0).getDealAmount()).isEqualTo("100,000");  // 거래 금액 확인
     }
 }
