@@ -62,7 +62,7 @@ public class ApiResponseDto {
     public static class Items {
         @JacksonXmlElementWrapper(useWrapping = false)
         @JacksonXmlProperty(localName = "item")
-        private List<Item> itemList;  // 단일 객체 대신 리스트로 변경
+        private List<Item> itemList;  // 다중 item을 처리하기 위한 List
     }
 
     @Getter
@@ -70,35 +70,80 @@ public class ApiResponseDto {
     @NoArgsConstructor
     @ToString
     public static class Item {
-        @JacksonXmlProperty(localName = "aptDong")
-        private String aptDong;
+        @JacksonXmlProperty(localName = "sggCd")
+        private String sggCd;
+
+        @JacksonXmlProperty(localName = "umdCd")
+        private String umdCd;
+
+        @JacksonXmlProperty(localName = "landCd")
+        private String landCd;
+
+        @JacksonXmlProperty(localName = "bonbun")
+        private String bonbun;
+
+        @JacksonXmlProperty(localName = "bubun")
+        private String bubun;
+
+        @JacksonXmlProperty(localName = "roadNm")
+        private String roadNm;
+
+        @JacksonXmlProperty(localName = "roadNmSggCd")
+        private String roadNmSggCd;
+
+        @JacksonXmlProperty(localName = "roadNmCd")
+        private String roadNmCd;
+
+        @JacksonXmlProperty(localName = "roadNmSeq")
+        private String roadNmSeq;
+
+        @JacksonXmlProperty(localName = "roadNmbCd")
+        private String roadNmbCd;
+
+        @JacksonXmlProperty(localName = "roadNmBonbun")
+        private String roadNmBonbun;
+
+        @JacksonXmlProperty(localName = "roadNmBubun")
+        private String roadNmBubun;
+
+        @JacksonXmlProperty(localName = "umdNm")
+        private String umdNm;
 
         @JacksonXmlProperty(localName = "aptNm")
         private String aptNm;
 
-        @JacksonXmlProperty(localName = "buildYear")
-        private int buildYear;  // buildYear를 int로 변경
+        @JacksonXmlProperty(localName = "jibun")
+        private String jibun;
 
-        @JacksonXmlProperty(localName = "buyerGbn")
-        private String buyerGbn;
+        @JacksonXmlProperty(localName = "excluUseAr")
+        private String excluUseAr;
 
-        @JacksonXmlProperty(localName = "cdealDay")
-        private String cdealDay;
+        @JacksonXmlProperty(localName = "dealYear")
+        private String dealYear;
 
-        @JacksonXmlProperty(localName = "cdealType")
-        private String cdealType;
+        @JacksonXmlProperty(localName = "dealMonth")
+        private String dealMonth;
+
+        @JacksonXmlProperty(localName = "dealDay")
+        private String dealDay;
 
         @JacksonXmlProperty(localName = "dealAmount")
         private String dealAmount;
 
-        @JacksonXmlProperty(localName = "dealDay")
-        private int dealDay;  // dealDay를 int로 변경
+        @JacksonXmlProperty(localName = "floor")
+        private String floor;
 
-        @JacksonXmlProperty(localName = "dealMonth")
-        private int dealMonth;  // dealMonth를 int로 변경
+        @JacksonXmlProperty(localName = "buildYear")
+        private String buildYear;
 
-        @JacksonXmlProperty(localName = "dealYear")
-        private int dealYear;  // dealYear를 int로 변경
+        @JacksonXmlProperty(localName = "aptSeq")
+        private String aptSeq;
+
+        @JacksonXmlProperty(localName = "cdealType")
+        private String cdealType;
+
+        @JacksonXmlProperty(localName = "cdealDay")
+        private String cdealDay;
 
         @JacksonXmlProperty(localName = "dealingGbn")
         private String dealingGbn;
@@ -106,28 +151,19 @@ public class ApiResponseDto {
         @JacksonXmlProperty(localName = "estateAgentSggNm")
         private String estateAgentSggNm;
 
-        @JacksonXmlProperty(localName = "excluUseAr")
-        private double excluUseAr;  // excluUseAr를 double로 변경
-
-        @JacksonXmlProperty(localName = "floor")
-        private int floor;  // floor를 int로 변경
-
-        @JacksonXmlProperty(localName = "jibun")
-        private String jibun;
-
-        @JacksonXmlProperty(localName = "landLeaseholdGbn")
-        private String landLeaseholdGbn;
-
         @JacksonXmlProperty(localName = "rgstDate")
         private String rgstDate;
 
-        @JacksonXmlProperty(localName = "sggCd")
-        private String sggCd;
+        @JacksonXmlProperty(localName = "aptDong")
+        private String aptDong;
 
         @JacksonXmlProperty(localName = "slerGbn")
         private String slerGbn;
 
-        @JacksonXmlProperty(localName = "umdNm")
-        private String umdNm;
+        @JacksonXmlProperty(localName = "buyerGbn")
+        private String buyerGbn;
+
+        @JacksonXmlProperty(localName = "landLeaseholdGbn")
+        private String landLeaseholdGbn;
     }
 }

@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface RealEstateTransactionRepository extends JpaRepository<RealEstateTransaction, Long>{
     
-    boolean existsByAptNmAndDealYearAndDealMonthAndDealDay(String aptNm, int dealYear, int dealMonth, int dealDay);
+    boolean existsByAptNmAndDealYearAndDealMonthAndDealDayAndFloorAndDealAmount(String aptNm, String dealYear, String dealMonth, String dealDay, String floor, String dealAmount);
 
     List<RealEstateTransaction> findByLawdCdAndDealYmd(String lawdCd, String dealYmd);
 

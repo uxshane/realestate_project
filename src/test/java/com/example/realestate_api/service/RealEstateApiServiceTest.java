@@ -24,17 +24,20 @@ public class RealEstateApiServiceTest {
 
     @Test
     public void testFetchRealEstateData() throws Exception {
-        // Given: RestTemplate의 모킹된 동작을 설정
+        // Given: RestTemplate의 모킹된 동작을 설정 (Mock된 API 응답)
         String mockResponse = "<response><header><resultCode>000</resultCode><resultMsg>OK</resultMsg></header>"
                             + "<body><items><item><aptNm>Mock Apt</aptNm><dealAmount>100,000</dealAmount></item></items></body></response>";
         
+        // RestTemplate의 호출 결과를 모킹하여 지정된 XML 응답을 반환하도록 설정
         when(restTemplate.getForObject(anyString(), eq(String.class))).thenReturn(mockResponse);
 
-        // When: RealEstateApiService 호출
+        // When: RealEstateApiService의 fetchRealEstateData 메서드 호출
         String lawdCd = "11110";  // 서울특별시 법정동 코드
         String dealYmd = "202410";  // 2024년 10월 거래 데이터
+        int pageNo = 1;
+        int numOfRows = 500;
 
-        ApiResponseDto result = realEstateApiService.fetchRealEstateData(lawdCd, dealYmd);
+        ApiResponseDto result = realEstateApiService.fetchRealEstateData(lawdCd, dealYmd, pageNo, numOfRows);
 
         // Then: 결과 검증
         assertThat(result).isNotNull();

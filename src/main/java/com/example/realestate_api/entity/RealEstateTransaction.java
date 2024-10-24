@@ -14,29 +14,80 @@ public class RealEstateTransaction {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "apt_dong")
-    private String aptDong;
+    @Column(name = "sgg_cd")
+    private String sggCd;
+
+    @Column(name = "umd_cd")
+    private String umdCd;
+
+    @Column(name = "land_cd")
+    private String landCd;
+
+    @Column(name = "bonbun")
+    private String bonbun;
+
+    @Column(name = "bubun")
+    private String bubun;
+
+    @Column(name = "road_nm")
+    private String roadNm;
+
+    @Column(name = "road_nm_sgg_cd")
+    private String roadNmSggCd;
+
+    @Column(name = "road_nm_cd")
+    private String roadNmCd;
+
+    @Column(name = "road_nm_seq")
+    private String roadNmSeq;
+
+    @Column(name = "road_nmb_cd")
+    private String roadNmbCd;
+
+    @Column(name = "road_nm_bonbun")
+    private String roadNmBonbun;
+
+    @Column(name = "road_nm_bubun")
+    private String roadNmBubun;
+
+    @Column(name = "umd_nm")
+    private String umdNm;
 
     @Column(name = "apt_name")
     private String aptNm;
 
-    @Column(name = "build_year")
-    private int buildYear;  // buildYear는 int형으로 유지
+    @Column(name = "jibun")
+    private String jibun;
 
-    @Column(name = "buyer_gbn")
-    private String buyerGbn;
-
-    @Column(name = "deal_amount")
-    private String dealAmount;  // dealAmount는 String으로 저장
-
-    @Column(name = "deal_day")
-    private int dealDay;  // dealDay는 int로 저장
-
-    @Column(name = "deal_month")
-    private int dealMonth;  // dealMonth는 int로 저장
+    @Column(name = "exclu_use_ar")
+    private String excluUseAr;
 
     @Column(name = "deal_year")
-    private int dealYear;  // dealYear는 int로 저장
+    private String dealYear;
+
+    @Column(name = "deal_month")
+    private String dealMonth;
+
+    @Column(name = "deal_day")
+    private String dealDay;
+
+    @Column(name = "deal_amount")
+    private String dealAmount;
+
+    @Column(name = "floor")
+    private String floor;
+
+    @Column(name = "build_year")
+    private String buildYear;
+
+    @Column(name = "apt_seq")
+    private String aptSeq;
+
+    @Column(name = "cdeal_type")
+    private String cdealType;
+
+    @Column(name = "cdeal_day")
+    private String cdealDay;
 
     @Column(name = "dealing_gbn")
     private String dealingGbn;
@@ -44,33 +95,24 @@ public class RealEstateTransaction {
     @Column(name = "estate_agent_sgg_nm")
     private String estateAgentSggNm;
 
-    @Column(name = "exclu_use_ar")
-    private double excluUseAr;  // excluUseAr는 double로 저장
-
-    @Column(name = "floor")
-    private int floor;  // floor는 int로 저장
-
-    @Column(name = "jibun")
-    private String jibun;
-
-    @Column(name = "land_leasehold_gbn")
-    private String landLeaseholdGbn;
-
     @Column(name = "rgst_date")
     private String rgstDate;
 
-    @Column(name = "sgg_cd")
-    private String sggCd;
+    @Column(name = "apt_dong")
+    private String aptDong;
 
     @Column(name = "sler_gbn")
     private String slerGbn;
 
-    @Column(name = "umd_nm")
-    private String umdNm;
+    @Column(name = "buyer_gbn")
+    private String buyerGbn;
+
+    @Column(name = "land_leasehold_gbn")
+    private String landLeaseholdGbn;
 
     @Column(name = "lawd_cd")
-    private String lawdCd;  // 법정동 코드
+    private String lawdCd;
 
     @Column(name = "deal_ymd")
-    private String dealYmd;  // 거래 연월 (YYYYMM 형식)
+    private String dealYmd;
 }
