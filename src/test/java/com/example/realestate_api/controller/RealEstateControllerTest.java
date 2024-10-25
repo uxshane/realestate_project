@@ -33,7 +33,7 @@ public class RealEstateControllerTest {
         doNothing().when(realEstateTransactionService).fetchAndSaveTransactions("11110", "202410");
 
         // 2. Controller의 엔드포인트 테스트
-        mockMvc.perform(get("/realestate/transactions/fetch-and-save")
+        mockMvc.perform(get("/realestate/fetch-and-save")
                 .param("lawdCd", "11110")
                 .param("dealYmd", "202410"))
                 .andExpect(status().isOk())

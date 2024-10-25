@@ -25,19 +25,28 @@ public class RegionCodeService {
     }
     
     // 스프레드시트 데이터를 DB에 저장하는 로직
-    public void storeSpreadsheetData(MultipartFile file) throws IOException{
+    public void storeSpreadsheetData(MultipartFile file) throws IOException {
+        String contentType = file.getContentType();
+        if (!"text/csv".equals(contentType) && 
+            !"application/vnd.ms-excel".equals(contentType) && 
+            !"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet".equals(contentType)) {
+            throw new IllegalArgumentException("잘못된 파일 형식입니다. CSV 또는 Excel 파일만 허용됩니다.");
+        }
+    
         List<RegionCode> regionCodes = new ArrayList<>();
-        // 스프레드시트에서 데이터를 읽어와서 리스트에 추가
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(file.getInputStream()))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] columns = line.split(",");
+                if (columns.length < 2) { // 열 개수 검증
+                    throw new IllegalArgumentException("잘못된 데이터 형식입니다. 두 개의 열이 필요합니다.");
+                }
                 String lawdCd = columns[0].substring(0, 5);
                 String regionName = columns[1];
                 regionCodes.add(new RegionCode(lawdCd, regionName));
             }
         }
-        // DB에 저장
-        saveRegionCodes(regionCodes);
+        saveRegionCodes(regionCodes);  // DB에 저장
     }
+    
 }
