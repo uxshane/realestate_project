@@ -29,28 +29,37 @@ public class RealEstateApiServiceImpl implements RealEstateApiService {
         String apiUrl = String.format(
             "https://apis.data.go.kr/1613000/RTMSDataSvcAptTradeDev/getRTMSDataSvcAptTradeDev?LAWD_CD=%s&DEAL_YMD=%s&serviceKey=%s&pageNo=%d&numOfRows=%d",
             lawdCd, dealYmd, apiKey, pageNo, numOfRows);
-
+    
         try {
             String response = restTemplate.getForObject(apiUrl, String.class);
-
+    
             if (response == null) {
                 logger.error("API 응답이 null입니다: lawdCd={}, dealYmd={}", lawdCd, dealYmd);
                 throw new IllegalArgumentException("API 응답이 null입니다.");
             }
-
+    
             XmlMapper xmlMapper = new XmlMapper();
             try {
                 // XML 형식 파싱 시도
                 return xmlMapper.readValue(response, XmlApiResponseDto.class);
             } catch (Exception xmlException) {
                 logger.warn("XML 파싱 실패, JSON 형식으로 재시도: lawdCd={}, dealYmd={}", lawdCd, dealYmd);
+    
                 // JSON 형식 파싱 시도
                 ObjectMapper jsonMapper = new ObjectMapper();
-                XmlApiResponseDto dto = jsonMapper.readValue(response, XmlApiResponseDto.class);
-                logger.warn("받은 값: " + response);
-                return dto;
+                JsonNode rootNode = jsonMapper.readTree(response);
+    
+                // 최상위 노드에서 "response" 부분만 추출
+                JsonNode responseNode = rootNode.path("response");
+                if (responseNode.isMissingNode()) {
+                    throw new RuntimeException("JSON 응답에 'response' 노드가 없습니다.");
+                }
+    
+                // 추출된 "response" 부분을 문자열로 변환
+                String xmlContent = new XmlMapper().writeValueAsString(responseNode);
+                return xmlMapper.readValue(xmlContent, XmlApiResponseDto.class);
             }
-
+    
         } catch (RestClientException e) {
             logger.error("API 호출 오류 발생: {}", e.getMessage(), e);
             throw new RuntimeException("API 호출 중 오류 발생", e);
@@ -59,4 +68,5 @@ public class RealEstateApiServiceImpl implements RealEstateApiService {
             throw new RuntimeException("응답을 처리하는 중 오류 발생", e);
         }
     }
+    
 }
