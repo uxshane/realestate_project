@@ -24,7 +24,19 @@ public class RealEstateController {
     }
 
     /**
-     * 부동산 거래 데이터를 가져오고 저장하는 API
+     * 2024년도 1~9월 부동산 거래 데이터를 가져오고 저장하는 API
+     *
+     * @param lawdCd  법정동 코드
+     * @throws Exception API 호출 및 데이터 처리 중 예외 발생 시
+     */
+    @GetMapping("/fetch-and-save/2024")
+    public void fetchAndSaveRealEstateDatafor2024(@RequestParam("lawdCd") String lawdCd) throws Exception {
+        // RealEstateTransactionService의 메서드를 호출하여 데이터를 가져오고 저장
+        realEstateTransactionService.fetchAndSaveTransactionsAsync(lawdCd);
+    }
+
+    /**
+     * 특정 월, 특정 지역 부동산 거래 데이터를 가져오고 저장하는 API
      *
      * @param lawdCd  법정동 코드
      * @param dealYmd 거래 연월 (YYYYMM 형식)

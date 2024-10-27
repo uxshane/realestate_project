@@ -1,9 +1,9 @@
 package com.example.realestate_api.service;
 
-import com.example.realestate_api.dto.ApiResponseDto;
+import com.example.realestate_api.dto.XmlApiResponseDto;
 
 public interface RealEstateApiService {
 
-    ApiResponseDto fetchRealEstateData(String lawdCd, String dealYmd, int pageNo, int numOfRows);
+    XmlApiResponseDto fetchRealEstateData(String lawdCd, String dealYmd, int pageNo, int numOfRows);
     
 }

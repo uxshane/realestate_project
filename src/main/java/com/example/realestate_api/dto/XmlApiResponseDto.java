@@ -1,6 +1,5 @@
 package com.example.realestate_api.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
@@ -15,9 +14,8 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @ToString
-@JsonIgnoreProperties(ignoreUnknown = true)
 @JacksonXmlRootElement(localName = "response")
-public class ApiResponseDto {
+public class XmlApiResponseDto {
 
     @JacksonXmlProperty(localName = "header")
     private Header header;
@@ -62,7 +60,7 @@ public class ApiResponseDto {
     public static class Items {
         @JacksonXmlElementWrapper(useWrapping = false)
         @JacksonXmlProperty(localName = "item")
-        private List<Item> itemList;  // 다중 item을 처리하기 위한 List
+        private List<Item> itemList;
     }
 
     @Getter
@@ -116,7 +114,7 @@ public class ApiResponseDto {
         private String jibun;
 
         @JacksonXmlProperty(localName = "excluUseAr")
-        private String excluUseAr;
+        private double excluUseAr;
 
         @JacksonXmlProperty(localName = "dealYear")
         private String dealYear;
@@ -131,10 +129,10 @@ public class ApiResponseDto {
         private String dealAmount;
 
         @JacksonXmlProperty(localName = "floor")
-        private String floor;
+        private int floor;
 
         @JacksonXmlProperty(localName = "buildYear")
-        private String buildYear;
+        private int buildYear;
 
         @JacksonXmlProperty(localName = "aptSeq")
         private String aptSeq;

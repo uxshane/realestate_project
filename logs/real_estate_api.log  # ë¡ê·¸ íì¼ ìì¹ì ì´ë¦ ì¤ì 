@@ -1,0 +1,27 @@
+2024-10-27T21:24:37.502+09:00 ERROR 67839 --- [realestate-api] [restartedMain] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Failed to bind properties under 'logging.level.root' to org.springframework.boot.logging.LogLevel:
+
+    Property: logging.level.root
+    Value: "INFO  # ì ì²´ ì íë¦¬ì¼ì´ìì ë¡ê·¸ ë ë²¨ ì¤ì  (DEBUG, INFO, WARN, ERROR ë±)"
+    Origin: class path resource [application.properties] - 23:20
+    Reason: failed to convert java.lang.String to org.springframework.boot.logging.LogLevel (caused by java.lang.IllegalArgumentException: No enum constant org.springframework.boot.logging.LogLevel.INFO  # ì ì²´ ì íë¦¬ì¼ì´ìì ë¡ê·¸ ë ë²¨ ì¤ì  (DEBUG, INFO, WARN, ERROR ë±))
+
+Action:
+
+Update your application's configuration. The following values are valid:
+
+    DEBUG
+    ERROR
+    FATAL
+    INFO
+    OFF
+    TRACE
+    WARN
+

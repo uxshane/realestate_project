@@ -14,7 +14,6 @@ public class RestTemplateConfig {
     public RestTemplate restTemplate(RestTemplateBuilder builder) {
         return builder
             .setConnectTimeout(Duration.ofMillis(5000)) // 연결 타임아웃
-            .setReadTimeout(Duration.ofMillis(10000))   // 읽기 타임아웃
             .build();
     }
 

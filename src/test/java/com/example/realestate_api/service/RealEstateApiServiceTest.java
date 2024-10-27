@@ -6,7 +6,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.web.client.RestTemplate;
 
-import com.example.realestate_api.dto.ApiResponseDto;
+import com.example.realestate_api.dto.XmlApiResponseDto;
 
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
@@ -37,7 +37,7 @@ public class RealEstateApiServiceTest {
         int pageNo = 1;
         int numOfRows = 500;
 
-        ApiResponseDto result = realEstateApiService.fetchRealEstateData(lawdCd, dealYmd, pageNo, numOfRows);
+        XmlApiResponseDto result = realEstateApiService.fetchRealEstateData(lawdCd, dealYmd, pageNo, numOfRows);
 
         // Then: 결과 검증
         assertThat(result).isNotNull();

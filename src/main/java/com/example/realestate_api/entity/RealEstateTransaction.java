@@ -60,7 +60,7 @@ public class RealEstateTransaction {
     private String jibun;
 
     @Column(name = "exclu_use_ar")
-    private String excluUseAr;
+    private double excluUseAr;
 
     @Column(name = "deal_year")
     private String dealYear;
@@ -75,10 +75,10 @@ public class RealEstateTransaction {
     private String dealAmount;
 
     @Column(name = "floor")
-    private String floor;
+    private int floor;
 
     @Column(name = "build_year")
-    private String buildYear;
+    private int buildYear;
 
     @Column(name = "apt_seq")
     private String aptSeq;

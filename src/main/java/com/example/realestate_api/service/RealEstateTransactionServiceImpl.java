@@ -5,10 +5,12 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import com.example.realestate_api.dto.ApiResponseDto;
-import com.example.realestate_api.dto.ApiResponseDto.Item;
+import com.example.realestate_api.dto.XmlApiResponseDto;
+import com.example.realestate_api.dto.XmlApiResponseDto.Item;
 import com.example.realestate_api.entity.RealEstateTransaction;
 import com.example.realestate_api.repository.RealEstateTransactionRepository;
 
@@ -18,8 +20,11 @@ import jakarta.transaction.Transactional;
 public class RealEstateTransactionServiceImpl implements RealEstateTransactionService {
 
     //공공데이터 API 호출 시 스레드 풀을 사용해 비동기 처리
+    private static final Logger logger = LoggerFactory.getLogger(RealEstateTransactionServiceImpl.class);
     private final ExecutorService executorService = Executors.newFixedThreadPool(10);
+    private static final int MAX_RETRY_COUNT = 3;  // 최대 재시도 횟수
 
+    //필요한 클래스 생성
     private final RealEstateTransactionRepository realEstateTransactionRepository;
     private final RealEstateApiService realEstateApiService;
 
@@ -35,21 +40,46 @@ public class RealEstateTransactionServiceImpl implements RealEstateTransactionSe
             
             // 비동기 API 호출 및 데이터 저장
             CompletableFuture.runAsync(() -> {
-                fetchAndSaveTransactions(lawdCd, dealYmd);
+                try {
+                    performWithRetry(() -> fetchAndSaveTransactions(lawdCd, dealYmd), lawdCd, dealYmd);
+                } catch (Exception e) {
+                    logger.error("데이터 저장 실패: lawdCd={}, dealYmd={}, 오류={}", lawdCd, dealYmd, e.getMessage());
+                }
             }, executorService);
+        }
+    }
+
+    // 재시도 로직을 포함한 메서드
+    private void performWithRetry(Runnable task, String lawdCd, String dealYmd) throws Exception {
+        int retryCount = 0;
+        boolean success = false;
+        
+        while (!success && retryCount < MAX_RETRY_COUNT) {
+            try {
+                task.run();
+                success = true;  // 성공 시 반복 종료
+            } catch (Exception e) {
+                retryCount++;
+                logger.warn("재시도 {}/{} 실패: lawdCd={}, dealYmd={}, 오류={}", retryCount, MAX_RETRY_COUNT, lawdCd, dealYmd, e.getMessage());
+                
+                if (retryCount >= MAX_RETRY_COUNT) {
+                    logger.error("최대 재시도 횟수 초과: lawdCd={}, dealYmd={}", lawdCd, dealYmd);
+                    throw e;  // 최종 실패 시 예외 전파
+                }
+            }
         }
     }
 
     @Override
     @Transactional
     public void fetchAndSaveTransactions(String lawdCd, String dealYmd) {
-        int numOfRows = 500;  // 한 페이지에 500개 데이터 가져옴
+        final int numOfRows = 500;  // 한 페이지에 500개 데이터 가져옴
         int pageNo = 1;
         boolean hasNextPage = true;
 
         while (hasNextPage) {
             // API 호출 (페이징 지원)
-            ApiResponseDto response = realEstateApiService.fetchRealEstateData(lawdCd, dealYmd, pageNo, numOfRows);
+            XmlApiResponseDto response = realEstateApiService.fetchRealEstateData(lawdCd, dealYmd, pageNo, numOfRows);
 
             if (response != null) {
                 // 총 데이터 개수 확인
@@ -75,7 +105,7 @@ public class RealEstateTransactionServiceImpl implements RealEstateTransactionSe
     @Transactional
     @Override
     public void saveTransactions(List<Item> itemList, String lawdCd, String dealYmd) {
-        for (ApiResponseDto.Item item : itemList) {
+        for (XmlApiResponseDto.Item item : itemList) {
             RealEstateTransaction transaction = new RealEstateTransaction();
             transaction.setSggCd(item.getSggCd());
             transaction.setUmdCd(item.getUmdCd());
