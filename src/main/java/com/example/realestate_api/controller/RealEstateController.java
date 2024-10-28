@@ -24,7 +24,18 @@ public class RealEstateController {
     }
 
     /**
-     * 2024년도 1~9월 부동산 거래 데이터를 가져오고 저장하는 API
+     * 2024년도 1~9월 경기도권에 있는 시,군,구 부동산 거래 데이터를 가져오고 저장하는 API
+     *
+     * @throws Exception API 호출 및 데이터 처리 중 예외 발생 시
+     */
+    @GetMapping("/fetch-and-save/Gyeonggido")
+    public void fetchAndSaveRealEstateDataforGyeonggido() throws Exception{
+        realEstateTransactionService.fetchAndSaveAllRegionsTransactions();
+    }
+    
+
+    /**
+     * 지정한 법정동 코드 하나의 2024년도 1~9월 부동산 거래 데이터를 가져오고 저장하는 API
      *
      * @param lawdCd  법정동 코드
      * @throws Exception API 호출 및 데이터 처리 중 예외 발생 시

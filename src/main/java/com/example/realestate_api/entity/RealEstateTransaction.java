@@ -7,7 +7,10 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@Table(name = "real_estate_transaction")
+@Table(name = "real_estate_transaction", indexes = {
+    @Index(name = "idx_aptNm_dealMonth_dealDay_floor_dealAmount", 
+           columnList = "apt_name, deal_month, deal_day, floor, deal_amount")
+})
 public class RealEstateTransaction {
 
     @Id
@@ -65,13 +68,13 @@ public class RealEstateTransaction {
     @Column(name = "deal_year")
     private String dealYear;
 
-    @Column(name = "deal_month")
+    @Column(name = "deal_month", length = 10)
     private String dealMonth;
 
-    @Column(name = "deal_day")
+    @Column(name = "deal_day", length = 10)
     private String dealDay;
 
-    @Column(name = "deal_amount")
+    @Column(name = "deal_amount", length = 100)
     private String dealAmount;
 
     @Column(name = "floor")

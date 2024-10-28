@@ -37,4 +37,5 @@ out/
 .vscode/
 
 /src/main/resources/application.properties
-/logs/real_estate_api.log
+
+app.log
