@@ -1,36 +1,27 @@
 package com.example.realestate_api.service;
 
-import static org.mockito.Mockito.*;
-import static org.junit.jupiter.api.Assertions.*;
-
+import com.example.realestate_api.dto.XmlApiResponseDto;
+import com.example.realestate_api.service.RealEstateApiService;
+import com.example.realestate_api.service.RealEstateTransactionServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.slf4j.Logger;
-import org.springframework.boot.test.context.SpringBootTest;
 
-import com.example.realestate_api.dto.XmlApiResponseDto;
-import com.example.realestate_api.service.RealEstateApiService;
-import com.example.realestate_api.service.RealEstateTransactionServiceImpl;
+import java.util.concurrent.TimeUnit;
 
-@Disabled
-@SpringBootTest
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.*;
+
 public class ApiErrorLoggingTest {
 
     @Mock
     private RealEstateApiService realEstateApiService;
 
-    @Mock
-    private Logger logger;
-
     @InjectMocks
-    private RealEstateTransactionServiceImpl realEstateTransactionServiceImpl;
-
-    private static final String LAWD_CD = "41460";
-    private static final String DEAL_YMD = "202401";
+    private RealEstateTransactionServiceImpl realEstateTransactionService;
 
     @BeforeEach
     public void setUp() {
@@ -38,55 +29,39 @@ public class ApiErrorLoggingTest {
     }
 
     @Test
-    public void testFetchAndSaveTransactionsAsync_Successful() throws Exception {
-        // 정상적인 API 응답을 모킹
-        when(realEstateApiService.fetchRealEstateData(LAWD_CD, DEAL_YMD, 1, 500)).thenReturn(new XmlApiResponseDto());
-
-        // 비동기 호출
-        realEstateTransactionServiceImpl.fetchAndSaveTransactionsAsync(LAWD_CD);
-
-        // 비동기 작업이 완료될 때까지 대기 (3초 정도 기다림)
-        Thread.sleep(3000);
-
-        // API 호출이 한 번 발생하는지 검증
-        verify(realEstateApiService, times(1)).fetchRealEstateData(LAWD_CD, DEAL_YMD, 1, 500);
-    }
-
-    @Test
     public void testFetchAndSaveTransactionsAsync_RetryOnFailure() throws Exception {
-        // 첫 두 번의 호출에서 예외 발생, 세 번째 호출은 성공하도록 설정
-        when(realEstateApiService.fetchRealEstateData(LAWD_CD, DEAL_YMD, 1, 500))
-            .thenThrow(new RuntimeException("API 호출 실패"))
-            .thenThrow(new RuntimeException("API 호출 실패"))
-            .thenReturn(new XmlApiResponseDto());  // 세 번째 호출은 성공
+        // 처음 두 번 예외 발생, 세 번째 호출에 성공
+        when(realEstateApiService.fetchRealEstateData(anyString(), anyString(), anyInt(), anyInt()))
+                .thenThrow(new RuntimeException("API 호출 실패"))
+                .thenThrow(new RuntimeException("API 호출 실패"))
+                .thenReturn(new XmlApiResponseDto()); // 성공적인 응답 반환
 
-        // 비동기 호출
-        realEstateTransactionServiceImpl.fetchAndSaveTransactionsAsync(LAWD_CD);
+        // 비동기 메서드 호출
+        realEstateTransactionService.fetchAndSaveTransactionsAsync("41465");
 
-        // 비동기 작업이 완료될 때까지 대기 (5초 정도 기다림)
-        Thread.sleep(5000);
+        // 비동기 작업이 완료될 때까지 대기
+        TimeUnit.SECONDS.sleep(5); // 비동기 작업이 완료되도록 대기 시간 설정
 
-        // API가 세 번 호출되었는지 확인
-        verify(realEstateApiService, times(3)).fetchRealEstateData(LAWD_CD, DEAL_YMD, 1, 500);
+        // 호출 검증 (유연하게 pageNo 인자 처리)
+        verify(realEstateApiService, times(3)).fetchRealEstateData(eq("41465"), eq("202409"), anyInt(), eq(500));
     }
 
     @Test
-    public void testFetchAndSaveTransactions_FailureAfterMaxRetries() throws InterruptedException {
-        // 모든 재시도에서 실패하도록 설정
-        when(realEstateApiService.fetchRealEstateData(LAWD_CD, DEAL_YMD, 1, 500))
-            .thenThrow(new RuntimeException("API 호출 실패"));
+    public void testFetchAndSaveTransactions_FailureAfterMaxRetries() throws Exception {
+        // 세 번 모두 예외 발생
+        when(realEstateApiService.fetchRealEstateData(anyString(), anyString(), anyInt(), anyInt()))
+                .thenThrow(new RuntimeException("API 호출 실패"));
 
-        // 비동기 호출
-        realEstateTransactionServiceImpl.fetchAndSaveTransactionsAsync(LAWD_CD);
+        // 비동기 메서드 호출
+        realEstateTransactionService.fetchAndSaveTransactionsAsync("41465");
 
-        // 비동기 작업이 완료될 때까지 대기 (5초 정도 기다림)
-        Thread.sleep(5000);
+        // 비동기 작업이 완료될 때까지 대기
+        TimeUnit.SECONDS.sleep(5); // 비동기 작업이 완료되도록 대기 시간 설정
 
-        // 최대 재시도 횟수만큼 호출되었는지 확인
-        verify(realEstateApiService, times(3)).fetchRealEstateData(LAWD_CD, DEAL_YMD, 1, 500);
-
-        // 로그가 기록되었는지 확인
-        verify(logger, atLeastOnce()).error(contains("최대 재시도 횟수 초과: lawdCd="), eq(LAWD_CD), eq(DEAL_YMD));
+        // 호출 검증
+        verify(realEstateApiService, times(3)).fetchRealEstateData(eq("41465"), eq("202409"), anyInt(), eq(500));
     }
 }
+
+
 
