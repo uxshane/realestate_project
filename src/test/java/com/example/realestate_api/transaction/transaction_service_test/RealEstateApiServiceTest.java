@@ -1,4 +1,4 @@
-package com.example.realestate_api.service;
+package com.example.realestate_api.transaction.transaction_service_test;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -6,7 +6,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.web.client.RestTemplate;
 
-import com.example.realestate_api.dto.XmlApiResponseDto;
+import com.example.realestate_api.transaction.transaction_dto.XmlApiResponseDto;
+import com.example.realestate_api.transaction.transaction_service.RealEstateApiService;
 
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;

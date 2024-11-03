@@ -1,6 +1,6 @@
-package com.example.realestate_api.service;
+package com.example.realestate_api.transaction.transaction_service;
 
-import com.example.realestate_api.dto.XmlApiResponseDto;
+import com.example.realestate_api.transaction.transaction_dto.XmlApiResponseDto;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;

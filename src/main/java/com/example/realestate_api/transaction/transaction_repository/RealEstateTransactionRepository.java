@@ -1,8 +1,9 @@
-package com.example.realestate_api.repository;
+package com.example.realestate_api.transaction.transaction_repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.example.realestate_api.entity.RealEstateTransaction;
+import com.example.realestate_api.transaction.transaction_entity.RealEstateTransaction;
+
 import java.util.List;
 
 public interface RealEstateTransactionRepository extends JpaRepository<RealEstateTransaction, Long>{

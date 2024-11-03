@@ -1,7 +1,8 @@
-package com.example.realestate_api.controller;
+package com.example.realestate_api.transaction.transaction_controller_test;
 
-import com.example.realestate_api.entity.RealEstateTransaction;
-import com.example.realestate_api.service.RealEstateTransactionService;
+import com.example.realestate_api.transaction.transaction_controller.RealEstateController;
+import com.example.realestate_api.transaction.transaction_entity.RealEstateTransaction;
+import com.example.realestate_api.transaction.transaction_service.RealEstateTransactionService;
 import com.example.realestate_api.config.TestSecurityConfig;  // TestSecurityConfig 추가
 
 import org.junit.jupiter.api.Test;

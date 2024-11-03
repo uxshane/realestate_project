@@ -1,4 +1,4 @@
-package com.example.realestate_api.entity;
+package com.example.realestate_api.transaction.transaction_entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;

@@ -1,7 +1,8 @@
-package com.example.realestate_api.service;
+package com.example.realestate_api.transaction.transaction_service_test;
 
-import com.example.realestate_api.entity.RealEstateTransaction;
-import com.example.realestate_api.repository.RealEstateTransactionRepository;
+import com.example.realestate_api.transaction.transaction_entity.RealEstateTransaction;
+import com.example.realestate_api.transaction.transaction_repository.RealEstateTransactionRepository;
+import com.example.realestate_api.transaction.transaction_service.RealEstateTransactionService;
 
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;

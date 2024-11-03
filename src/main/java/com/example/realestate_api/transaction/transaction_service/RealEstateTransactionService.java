@@ -1,9 +1,10 @@
-package com.example.realestate_api.service;
+package com.example.realestate_api.transaction.transaction_service;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
-import com.example.realestate_api.dto.XmlApiResponseDto;
-import com.example.realestate_api.entity.RealEstateTransaction;
+
+import com.example.realestate_api.transaction.transaction_dto.XmlApiResponseDto;
+import com.example.realestate_api.transaction.transaction_entity.RealEstateTransaction;
 
 public interface RealEstateTransactionService {
 

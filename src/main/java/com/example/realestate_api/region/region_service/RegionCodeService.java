@@ -1,4 +1,4 @@
-package com.example.realestate_api.service;
+package com.example.realestate_api.region.region_service;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -7,8 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import com.example.realestate_api.entity.RegionCode;
-import com.example.realestate_api.repository.RegionCodeRepository;
+
+import com.example.realestate_api.region.region_entity.RegionCode;
+import com.example.realestate_api.region.region_repository.RegionCodeRepository;
 
 @Service
 public class RegionCodeService {

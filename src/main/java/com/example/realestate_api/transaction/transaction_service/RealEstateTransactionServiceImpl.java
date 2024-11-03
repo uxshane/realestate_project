@@ -1,4 +1,4 @@
-package com.example.realestate_api.service;
+package com.example.realestate_api.transaction.transaction_service;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -12,12 +12,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import com.example.realestate_api.dto.XmlApiResponseDto;
-import com.example.realestate_api.dto.XmlApiResponseDto.Item;
-import com.example.realestate_api.entity.RealEstateTransaction;
-import com.example.realestate_api.entity.RegionCode;
-import com.example.realestate_api.repository.RealEstateTransactionRepository;
-import com.example.realestate_api.repository.RegionCodeRepository;
+import com.example.realestate_api.region.region_entity.RegionCode;
+import com.example.realestate_api.region.region_repository.RegionCodeRepository;
+import com.example.realestate_api.transaction.transaction_dto.XmlApiResponseDto;
+import com.example.realestate_api.transaction.transaction_dto.XmlApiResponseDto.Item;
+import com.example.realestate_api.transaction.transaction_entity.RealEstateTransaction;
+import com.example.realestate_api.transaction.transaction_repository.RealEstateTransactionRepository;
 
 import jakarta.transaction.Transactional;
 

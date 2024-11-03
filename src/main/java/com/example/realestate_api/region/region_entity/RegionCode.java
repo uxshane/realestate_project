@@ -1,4 +1,4 @@
-package com.example.realestate_api.entity;
+package com.example.realestate_api.region.region_entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

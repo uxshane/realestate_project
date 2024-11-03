@@ -1,12 +1,12 @@
-package com.example.realestate_api.controller;
+package com.example.realestate_api.transaction.transaction_controller;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.realestate_api.entity.RealEstateTransaction;
-import com.example.realestate_api.service.RealEstateTransactionService;
+import com.example.realestate_api.transaction.transaction_entity.RealEstateTransaction;
+import com.example.realestate_api.transaction.transaction_service.RealEstateTransactionService;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
